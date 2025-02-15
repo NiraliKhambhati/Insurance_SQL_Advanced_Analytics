@@ -92,13 +92,13 @@ ORDER BY Count DESC;
 
 -- What is Conversion Rate by Region?
 SELECT 
-     Region,
-     COUNT(*),
-     SUM(CASE WHEN Conversion_Status= 1 THEN 1 ELSE 0 END) as Coverted_Customers,
-     ROUND((SUM(CASE WHEN Conversion_Status = 1 THEN 1 ELSE 0 END) * 100.0)/ COUNT(*), 2) as Convertion_Rate
+    Region,
+    COUNT(*) AS Total_Customers,
+    SUM(Conversion_Status) AS Converted_Customers,
+    ROUND(AVG(Conversion_Status) * 100, 2) AS Conversion_Rate
 FROM insurance_data
 GROUP BY Region
-ORDER BY Convertion_Rate DESC;
+ORDER BY Conversion_Rate DESC;
 
 -- What are the top 5 regions with the highest average premium? 
 WITH RegionPremium as (
@@ -129,7 +129,7 @@ ORDER BY Avg_Claim_Frequecy DESC;
 -- As I don't have Cusomer_ID Column, I want to assign one to each
 
 -- ALTER TABLE insurance_data
--- ADD COLUMN Customer_ID INT
+-- ADD COLUMN Customer_ID INT NOT NULL
 -- AUTO_INCREMENT PRIMARY KEY;
 
 -- Checking Cusotmer_ID
@@ -205,3 +205,23 @@ SELECT
 FROM InquiriesRank
 WHERE Inquiry_Rank <= 3
 ORDER BY Inquiry_Rank DESC;
+
+-- How long does it typically take for a customer to convert based on their number of inquiries? (Using GROUP BY & Aggregate Functions)
+SELECT 
+    Inquiries, 
+    COUNT(*) AS Total_Customers,
+    ROUND(AVG(Time_to_Conversion), 2) AS Avg_Time_to_Conversion
+FROM insurance_data
+WHERE Conversion_Status = 1  
+GROUP BY Inquiries
+ORDER BY Avg_Time_to_Conversion DESC;
+
+--  Find the most common sources of leads for converted customers
+SELECT 
+    Source_of_Lead, 
+    COUNT(*) AS Total_Leads,
+	SUM(CASE WHEN Conversion_Status = 1 THEN 1 ELSE 0 END) AS Converted_Customers,
+    ROUND(SUM(CASE WHEN Conversion_Status = 1 THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS Conversion_Rate
+FROM insurance_data
+GROUP BY Source_of_Lead
+LIMIT 5;
