@@ -62,8 +62,9 @@ SELECT *
 FROM Claim_Frequency
 ORDER BY Avg_Claim_Frequency DESC;
 
-#### Full Coverage and Liability-Only policies have nearly identical average claims frequency (~0.50).
-#### However, Full Coverage policies generate more total claims (2,987 vs. 1,985) due to a larger customer base.
+##### **Insights**
+Full Coverage and Liability-Only policies have nearly identical average claims frequency (~0.50).
+However, Full Coverage policies generate more total claims (2,987 vs. 1,985) due to a larger customer base.
 
 ### 4. High-Risk Customer Identification
 SELECT 
