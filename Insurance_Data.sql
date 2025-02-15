@@ -42,7 +42,6 @@ DESCRIBE insurance_data;
 -- Check Total Records
 SELECT COUNT(*)
 FROM insurance_data;
--- 10000 Records
 
 -- Preview First Few Rows
 SELECT *
@@ -79,14 +78,13 @@ GROUP By Marital_Status
 ORDER BY COUNT DESC;
 
 SELECT 
-	  Region,
+      Region,
       COUNT(*) as Count
 FROM insurance_data
 GROUP BY Region
 ORDER BY Count DESC;
 
 -- What is Conversion Rate by Region?
-```sql
 SELECT 
     Region,
     COUNT(*) AS Total_Customers,
@@ -95,7 +93,6 @@ SELECT
 FROM insurance_data
 GROUP BY Region
 ORDER BY Conversion_Rate DESC;
-```
 
 -- What are the top 5 regions with the highest average premium? 
 WITH RegionPremium as (
@@ -125,9 +122,9 @@ ORDER BY Avg_Claim_Frequecy DESC;
            
 -- As I don't have Cusomer_ID Column, I want to assign one to each
 
--- ALTER TABLE insurance_data
--- ADD COLUMN Customer_ID INT NOT NULL
--- AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE insurance_data
+ADD COLUMN Customer_ID INT NOT NULL
+AUTO_INCREMENT PRIMARY KEY;
 
 -- Checking Cusotmer_ID
 SELECT Customer_ID
