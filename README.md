@@ -11,3 +11,23 @@ The dataset contains 10,000 records with 27 columns, covering customer demograph
 - Policy Details: Policy_Type, Premium_Amount, Safe_Driver_Discount, Bundling_Discount
 - Claims Information: Claims_Frequency, Claims_Severity, Claims_Adjustment
 - Conversion Metrics: Source_of_Lead, Conversion_Status, Website_Visits, Inquiries, Time_to_Conversion
+
+## Summary Statistics:
+- Average Age: 40 years
+- Prenium Amount Range: $1,800- $2,936 (Average: $2,219.57)
+- Most Common Lead Source: Online(Highest), Referrals(Highest Conversion Rate)
+- Highest Discounted Group: Seniors
+
+## 🔍 Key Analysis & Findings
+### 1. Conversion Rate by Region
+
+SELECT 
+    Region,
+    COUNT(*) AS Total_Customers,
+    SUM(Conversion_Status) AS Converted_Customers,
+    ROUND(AVG(Conversion_Status) * 100, 2) AS Conversion_Rate
+FROM insurance_data
+GROUP BY Region
+ORDER BY Conversion_Rate DESC;
+
+#### Rural Areas have the highest conversion rate (59.92%), followed by Suburban (57.62%) and Urban (56.76%).
