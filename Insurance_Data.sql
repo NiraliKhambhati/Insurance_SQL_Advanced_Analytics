@@ -55,7 +55,6 @@ SELECT
       SUM(CASE WHEN Premium_Amount IS NULL THEN 1 ELSE 0 END) as Prenium_Amount_Null,
       SUM(CASE WHEN Claims_Frequency IS NULL THEN 1 ELSE 0 END) as Claims_Frequency_Null
 FROM insurance_data;
--- No missing Data
 
 -- Identify Outliers
 SELECT 
@@ -64,16 +63,12 @@ SELECT
       MIN(Premium_Amount) as Min_Prenium_Amt,
       MAX(Premium_Amount) as Max_Prenium_Amt
 FROM insurance_data;
--- Age range is from 18 years to 90 years, which seems normal
--- Prenium Amount is from 1800 to 2936, which seems normal
 
--- Aggretate Metrics for Numerical Data
 SELECT
       ROUND(AVG(Age), 0) as Avg_Age,
       ROUND(AVG(Premium_Amount),2) as Avg_Prenium_Amt,
       ROUND(AVG(Claims_Frequency),2) as Avg_Claims_Frequency
 FROM insurance_data;
--- Average age is 40, Average Prenium Amount is 2219.57, Average Claims Frequency is 0.50
 
 -- Distribution Catergorical Data
 SELECT 
@@ -91,6 +86,7 @@ GROUP BY Region
 ORDER BY Count DESC;
 
 -- What is Conversion Rate by Region?
+```sql
 SELECT 
     Region,
     COUNT(*) AS Total_Customers,
@@ -99,6 +95,7 @@ SELECT
 FROM insurance_data
 GROUP BY Region
 ORDER BY Conversion_Rate DESC;
+```
 
 -- What are the top 5 regions with the highest average premium? 
 WITH RegionPremium as (
